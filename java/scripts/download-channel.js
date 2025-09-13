@@ -38,7 +38,7 @@ const UPLOAD_DELAY_CONFIG = 20; // Ultra-minimal delay for maximum throughput
 const CHUNK_SIZE_CONFIG = 32 * 1024 * 1024; // Increased to 32MB for maximum throughput
 
 // ULTRA-HIGH-SPEED CONFIGURATIONS
-const BATCH_SIZE = 5; // Increased batch size for better parallel processing
+const BATCH_SIZE = 2; // Increased batch size for better parallel processing
 const CONNECTION_POOL_SIZE = 8; // More connection pools for stability
 const SPEED_STABILIZATION_DELAY = 25; // Ultra-minimal stabilization delay
 const THROUGHPUT_OPTIMIZATION_MODE = true;
@@ -1265,7 +1265,7 @@ class DownloadChannel {
       );
 
       // Task 1: Refresh ALL channel messages every 3 batches to prevent false "file exists" detection.
-      if (this.batchCounter % 5 === 0) {
+      if (this.batchCounter % 2 === 0) {
         logger.info(`🔄 Batch ${this.batchCounter}: Refreshing ALL channel messages to prevent file existence errors...`);
         const allRefreshedMessages = await this.refreshAllChannelMessages(
           client,
